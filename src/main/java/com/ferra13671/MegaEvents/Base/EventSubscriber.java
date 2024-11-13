@@ -10,7 +10,7 @@ import java.lang.annotation.Target;
 
 /**
  * @author Ferra13671
- * @version 1
+ * @LastUpdate 1.0
  */
 
 @Retention(RetentionPolicy.RUNTIME)

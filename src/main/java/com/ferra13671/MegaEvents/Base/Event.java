@@ -5,7 +5,7 @@ import com.ferra13671.MegaEvents.EventModifiers.EventPhase;
 
 /**
  * @author Ferra13671
- * @version 1
+ * @LastUpdate 1.0
  */
 
 public abstract class Event {

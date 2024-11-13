@@ -34,6 +34,7 @@ public class UpdatedEventBus implements IEventBus {
                 registeredMap.put(_class, new ArrayList<>(methods));
             }
             registeredMap.get(_class).sort(Comparator.comparing(method -> method.method.getAnnotation(EventSubscriber.class).priority()));
+            Collections.reverse(registeredMap.get(_class));
         });
     }
 
@@ -43,7 +44,7 @@ public class UpdatedEventBus implements IEventBus {
             Method[] objectMethods = object.getClass().getDeclaredMethods();
             methods.removeIf(method -> {
                 for (Method m : objectMethods)
-                    if (method.equals(m)) return true;
+                    if (method.method.equals(m)) return true;
                 return false;
             });
         });
@@ -54,13 +55,13 @@ public class UpdatedEventBus implements IEventBus {
         try {
             registeredMap.forEach((_class, methods) -> {
                 if (_class.equals(event.getClass())) {
-                    for (MethodWithObject method : methods) {
+                    methods.forEach(method -> {
                         try {
                             method.method.invoke(method.object, event);
                         } catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
                             e.printStackTrace();
                         }
-                    }
+                    });
                 }
             });
         } catch (Exception e) {

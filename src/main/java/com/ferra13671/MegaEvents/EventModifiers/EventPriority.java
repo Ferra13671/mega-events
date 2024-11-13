@@ -1,8 +1,8 @@
 package com.ferra13671.MegaEvents.EventModifiers;
 
 /**
- * @author Bebra_tyan(Blue_tyan)
- * @version 1
+ * @author Ferra13671
+ * @LastUpdate 1.0
  */
 
 public interface EventPriority {
