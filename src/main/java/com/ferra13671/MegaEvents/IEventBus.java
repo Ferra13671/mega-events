@@ -11,5 +11,5 @@ public interface IEventBus {
 
     void unregister(Object object);
 
-    <T extends Event> void activate(T event);
+    <T extends Event<?>> void activate(T event);
 }

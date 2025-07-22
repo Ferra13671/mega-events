@@ -22,7 +22,9 @@ public class EventDispatcher<T extends Event> {
 
     public T createEvent(Object... args) {
         try {
-            return eventClass.getDeclaredConstructor().newInstance(args);
+            T event = eventClass.getDeclaredConstructor().newInstance(args);
+            event.setEventDispatcher(this);
+            return event;
         } catch (Exception e) {
             throw new CreateEventInstanceException(e);
         }

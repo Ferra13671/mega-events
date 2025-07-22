@@ -5,11 +5,19 @@ package com.ferra13671.MegaEvents;
  * @LastUpdate 1.4
  */
 
-public abstract class Event {
+public abstract class Event<T extends Event<?>> {
+    private EventDispatcher<T> eventDispatcher;
+    private boolean cancelled = false;
 
     public Event() {}
 
-    private boolean cancelled;
+    public void setEventDispatcher(EventDispatcher<T> eventDispatcher) {
+        this.eventDispatcher = eventDispatcher;
+    }
+
+    public EventDispatcher<T> getEventDispatcher() {
+        return eventDispatcher;
+    }
 
     public boolean isCancelled() {
         return cancelled;

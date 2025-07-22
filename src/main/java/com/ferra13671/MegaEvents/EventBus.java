@@ -62,8 +62,7 @@ public class EventBus implements IEventBus {
     }
 
     @Override
-    public <T extends Event> void activate(T event) {
-        EventDispatcher<?> eventDispatcher = EventDispatchers.getDispatcher(event.getClass());
-        eventDispatcher.getInvokeConsumer().accept(Collections.singletonList(event));
+    public <T extends Event<?>> void activate(T event) {
+        event.getEventDispatcher().getInvokeConsumer().accept(Collections.singletonList(event));
     }
 }
