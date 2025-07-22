@@ -2,13 +2,15 @@ package com.ferra13671.MegaEvents;
 
 import com.ferra13671.MegaEvents.exeptions.CreateEventInstanceException;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.function.Consumer;
+import java.util.stream.Collectors;
 
 /**
  * @author Ferra13671
- * @LastUpdate 1.4.3
+ * @LastUpdate 1.4.4
  */
 
 public class EventDispatcher<T extends Event> {
@@ -24,7 +26,7 @@ public class EventDispatcher<T extends Event> {
         try {
             T event;
             try {
-                event = eventClass.getDeclaredConstructor().newInstance(args);
+                event = eventClass.getDeclaredConstructor(Arrays.stream(args).map(Object::getClass).collect(Collectors.toList()).toArray(new Class[]{})).newInstance(args);
             } catch (Exception e) {
                 event = eventClass.newInstance();
             }
