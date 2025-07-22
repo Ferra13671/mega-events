@@ -7,7 +7,7 @@ import java.util.*;
 
 /**
  * @author Ferra13671
- * @LastUpdate 1.4
+ * @LastUpdate 1.4.2
  */
 
 public class EventBus implements IEventBus {
@@ -15,7 +15,7 @@ public class EventBus implements IEventBus {
     private void recreateConsumer(EventDispatcher<?> eventDispatcher) {
         eventDispatcher.setInvokeConsumer(ListUtils.convertToConsumer(eventDispatcher.getRegisteredMap(), ((registeredMethod, args) -> {
             try {
-                registeredMethod.method.invoke(registeredMethod.object, args);
+                registeredMethod.method.invoke(registeredMethod.object, args.toArray());
             } catch (Exception e) {
                 throw new InvokeRegisteredMethodException(e);
             }
