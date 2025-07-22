@@ -4,7 +4,7 @@ plugins {
 }
 
 group = 'com.ferra13671'
-version = '1.4.2'
+version = '1.4.3'
 
 java {
     toolchain {

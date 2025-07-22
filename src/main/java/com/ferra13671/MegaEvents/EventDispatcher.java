@@ -8,7 +8,7 @@ import java.util.function.Consumer;
 
 /**
  * @author Ferra13671
- * @LastUpdate 1.4
+ * @LastUpdate 1.4.3
  */
 
 public class EventDispatcher<T extends Event> {
@@ -22,7 +22,12 @@ public class EventDispatcher<T extends Event> {
 
     public T createEvent(Object... args) {
         try {
-            T event = eventClass.getDeclaredConstructor().newInstance(args);
+            T event;
+            try {
+                event = eventClass.getDeclaredConstructor().newInstance(args);
+            } catch (Exception e) {
+                event = eventClass.newInstance();
+            }
             event.setEventDispatcher(this);
             return event;
         } catch (Exception e) {
