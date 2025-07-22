@@ -2,18 +2,17 @@ package com.ferra13671.MegaEvents;
 
 import com.ferra13671.MegaEvents.exeptions.CreateEventInstanceException;
 
-import java.util.Arrays;
+import java.lang.reflect.Constructor;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.function.Consumer;
-import java.util.stream.Collectors;
 
 /**
  * @author Ferra13671
- * @LastUpdate 1.4.4
+ * @LastUpdate 1.4.5
  */
 
-public class EventDispatcher<T extends Event> {
+public class EventDispatcher<T extends Event<T>> {
     private final List<RegisteredMethod> registeredMap = new CopyOnWriteArrayList<>();
     private Consumer<List<Object>> invokeConsumer = (args) -> {};
     private final Class<T> eventClass;
@@ -24,12 +23,14 @@ public class EventDispatcher<T extends Event> {
 
     public T createEvent(Object... args) {
         try {
-            T event;
-            try {
-                event = eventClass.getDeclaredConstructor(Arrays.stream(args).map(Object::getClass).collect(Collectors.toList()).toArray(new Class[]{})).newInstance(args);
-            } catch (Exception e) {
-                event = eventClass.newInstance();
+            T event = null;
+            for (Constructor<?> constructor : eventClass.getConstructors()) {
+                try {
+                    event = (T) constructor.newInstance(args);
+                } catch (Exception ignored) {}
             }
+            if (event == null)
+                throw new Exception("Failed create event instance: ".concat(eventClass.getName()));
             event.setEventDispatcher(this);
             return event;
         } catch (Exception e) {

@@ -2,10 +2,10 @@ package com.ferra13671.MegaEvents;
 
 /**
  * @author Ferra13671
- * @LastUpdate 1.4
+ * @LastUpdate 1.4.5
  */
 
-public abstract class Event<T extends Event<?>> {
+public abstract class Event<T extends Event<T>> {
     private EventDispatcher<T> eventDispatcher;
     private boolean cancelled = false;
 
