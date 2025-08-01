@@ -7,7 +7,7 @@ import java.util.*;
 
 /**
  * @author Ferra13671
- * @LastUpdate 1.4.2
+ * @LastUpdate 1.5
  */
 
 public class EventBus implements IEventBus {
@@ -15,7 +15,10 @@ public class EventBus implements IEventBus {
     private void recreateConsumer(EventDispatcher<?> eventDispatcher) {
         eventDispatcher.setInvokeConsumer(ListUtils.convertToConsumer(eventDispatcher.getRegisteredMap(), ((registeredMethod, args) -> {
             try {
-                registeredMethod.method.invoke(registeredMethod.object, args.toArray());
+                if (registeredMethod.ghostEvent)
+                    registeredMethod.method.invoke(registeredMethod.object);
+                else
+                    registeredMethod.method.invoke(registeredMethod.object, args.toArray());
             } catch (Exception e) {
                 throw new InvokeRegisteredMethodException(e);
             }
@@ -26,23 +29,22 @@ public class EventBus implements IEventBus {
     public void register(Object object) {
         for (Method method : object.getClass().getDeclaredMethods()) {
             if (method.isAnnotationPresent(EventSubscriber.class)) {
-                if (method.getParameterTypes().length > 0) {
-                    EventDispatcher<?> eventDispatcher = EventDispatchers.getDispatcher((Class<? extends Event>) method.getParameterTypes()[0]);
-                    boolean needAdd = true;
-                    for (RegisteredMethod registeredMethod : eventDispatcher.getRegisteredMap()) {
-                        if (registeredMethod.method.equals(method)) {
-                            needAdd = false;
-                            break;
-                        }
+                EventSubscriber annotation = method.getAnnotation(EventSubscriber.class);
+                EventDispatcher<?> eventDispatcher = EventDispatchers.getDispatcher((Class<? extends Event>) (annotation.event().length > 0 ? annotation.event()[0] : method.getParameterTypes()[0]));
+                boolean needAdd = true;
+                for (RegisteredMethod registeredMethod : eventDispatcher.getRegisteredMap()) {
+                    if (registeredMethod.method.equals(method)) {
+                        needAdd = false;
+                        break;
                     }
-                    if (needAdd)
-                        eventDispatcher.getRegisteredMap().add(new RegisteredMethod(object, method));
-
-                    eventDispatcher.getRegisteredMap().sort(Comparator.comparing(registeredMethod -> registeredMethod.method.getAnnotation(EventSubscriber.class).priority()));
-                    Collections.reverse(eventDispatcher.getRegisteredMap());
-
-                    recreateConsumer(eventDispatcher);
                 }
+                if (needAdd)
+                    eventDispatcher.getRegisteredMap().add(new RegisteredMethod(object, method, annotation.event().length > 0));
+
+                eventDispatcher.getRegisteredMap().sort(Comparator.comparing(registeredMethod -> registeredMethod.method.getAnnotation(EventSubscriber.class).priority()));
+                Collections.reverse(eventDispatcher.getRegisteredMap());
+
+                recreateConsumer(eventDispatcher);
             }
         }
     }

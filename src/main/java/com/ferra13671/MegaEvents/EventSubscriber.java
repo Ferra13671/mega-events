@@ -7,11 +7,13 @@ import java.lang.annotation.Target;
 
 /**
  * @author Ferra13671
- * @LastUpdate 1.4
+ * @LastUpdate 1.5
  */
 
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.METHOD)
 public @interface EventSubscriber {
     int priority() default 0;
+
+    Class<? extends Event>[] event() default {};
 }
