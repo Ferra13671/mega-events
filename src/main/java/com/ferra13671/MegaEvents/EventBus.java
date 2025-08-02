@@ -7,7 +7,7 @@ import java.util.*;
 
 /**
  * @author Ferra13671
- * @LastUpdate 1.5.1
+ * @LastUpdate 1.5.2
  */
 
 public class EventBus implements IEventBus {
@@ -30,12 +30,7 @@ public class EventBus implements IEventBus {
         for (Method method : object.getClass().getDeclaredMethods()) {
             if (method.isAnnotationPresent(EventSubscriber.class)) {
                 EventSubscriber annotation = method.getAnnotation(EventSubscriber.class);
-                Class<? extends Event> clazz;
-                try {
-                    clazz = annotation.event()[0];
-                } catch (Exception e) {
-                    clazz = (Class<? extends Event>) method.getParameterTypes()[0];
-                }
+                Class<? extends Event> clazz = annotation.event()[0];
                 EventDispatcher<?> eventDispatcher = EventDispatchers.getDispatcher(clazz);
                 boolean needAdd = true;
                 for (RegisteredMethod registeredMethod : eventDispatcher.getRegisteredMap()) {
@@ -45,7 +40,7 @@ public class EventBus implements IEventBus {
                     }
                 }
                 if (needAdd)
-                    eventDispatcher.getRegisteredMap().add(new RegisteredMethod(object, method, annotation.event().length > 0));
+                    eventDispatcher.getRegisteredMap().add(new RegisteredMethod(object, method, method.getParameterTypes().length == 0));
 
                 eventDispatcher.getRegisteredMap().sort(Comparator.comparing(registeredMethod -> registeredMethod.method.getAnnotation(EventSubscriber.class).priority()));
                 Collections.reverse(eventDispatcher.getRegisteredMap());
