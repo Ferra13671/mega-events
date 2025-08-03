@@ -7,7 +7,7 @@ import java.util.*;
 
 /**
  * @author Ferra13671
- * @LastUpdate 1.5.3
+ * @LastUpdate 1.5.4
  */
 
 public class EventBus implements IEventBus {
@@ -55,12 +55,10 @@ public class EventBus implements IEventBus {
         for (Method method : object.getClass().getDeclaredMethods()) {
             if (method.isAnnotationPresent(EventSubscriber.class)) {
                 EventSubscriber annotation = method.getAnnotation(EventSubscriber.class);
-                if (method.getParameterTypes().length > 0) {
-                    EventDispatcher<?> eventDispatcher = EventDispatchers.getDispatcher((Class<? extends Event>) annotation.event()[0]);
-                    eventDispatcher.getRegisteredMap().removeIf(registeredMethod -> registeredMethod.object.equals(object) && registeredMethod.method.equals(method));
+                EventDispatcher<?> eventDispatcher = EventDispatchers.getDispatcher((Class<? extends Event>) annotation.event()[0]);
+                eventDispatcher.getRegisteredMap().removeIf(registeredMethod -> registeredMethod.object.equals(object) && registeredMethod.method.equals(method));
 
-                    recreateConsumer(eventDispatcher);
-                }
+                recreateConsumer(eventDispatcher);
             }
         }
     }
