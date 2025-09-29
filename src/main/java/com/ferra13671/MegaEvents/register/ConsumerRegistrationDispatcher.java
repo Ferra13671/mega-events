@@ -1,14 +1,14 @@
 package com.ferra13671.MegaEvents.register;
 
 
-import com.ferra13671.MegaEvents.*;
+import com.ferra13671.MegaEvents.event.Event;
 
 import java.lang.reflect.Method;
 import java.util.function.Consumer;
 
 /**
  * @author Ferra13671
- * @LastUpdate 1.5.5
+ * @LastUpdate 1.5.6
  */
 
 public class ConsumerRegistrationDispatcher extends RegistrationDispatcher {

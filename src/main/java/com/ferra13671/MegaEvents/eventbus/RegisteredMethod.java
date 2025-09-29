@@ -1,10 +1,10 @@
-package com.ferra13671.MegaEvents;
+package com.ferra13671.MegaEvents.eventbus;
 
 import java.lang.reflect.Method;
 
 /**
  * @author Ferra13671
- * @LastUpdate 1.5
+ * @LastUpdate 1.5.6
  */
 
 public class RegisteredMethod {

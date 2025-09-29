@@ -1,5 +1,6 @@
-package com.ferra13671.MegaEvents;
+package com.ferra13671.MegaEvents.event;
 
+import com.ferra13671.MegaEvents.eventbus.RegisteredMethod;
 import com.ferra13671.MegaEvents.exeptions.CreateEventInstanceException;
 
 import java.lang.reflect.Constructor;
@@ -9,7 +10,7 @@ import java.util.function.Consumer;
 
 /**
  * @author Ferra13671
- * @LastUpdate 1.4.5
+ * @LastUpdate 1.5.6
  */
 
 public class EventDispatcher<T extends Event<T>> {

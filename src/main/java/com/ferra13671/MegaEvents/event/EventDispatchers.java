@@ -1,10 +1,10 @@
-package com.ferra13671.MegaEvents;
+package com.ferra13671.MegaEvents.event;
 
 import java.util.HashMap;
 
 /**
  * @author Ferra13671
- * @LastUpdate 1.4.5
+ * @LastUpdate 1.5.6
  */
 
 public final class EventDispatchers {

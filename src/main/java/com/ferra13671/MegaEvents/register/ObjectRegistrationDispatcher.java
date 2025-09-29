@@ -1,12 +1,13 @@
 package com.ferra13671.MegaEvents.register;
 
-import com.ferra13671.MegaEvents.*;
+import com.ferra13671.MegaEvents.event.Event;
+import com.ferra13671.MegaEvents.eventbus.EventSubscriber;
 
 import java.lang.reflect.Method;
 
 /**
  * @author Ferra13671
- * @LastUpdate 1.5.5
+ * @LastUpdate 1.5.6
  */
 
 public class ObjectRegistrationDispatcher extends RegistrationDispatcher {

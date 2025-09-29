@@ -1,5 +1,6 @@
-package com.ferra13671.MegaEvents;
+package com.ferra13671.MegaEvents.eventbus;
 
+import com.ferra13671.MegaEvents.event.Event;
 import com.ferra13671.MegaEvents.register.RegistrationDispatcher;
 import com.ferra13671.MegaEvents.register.RegistrationDispatchers;
 
@@ -8,7 +9,7 @@ import java.util.function.Consumer;
 
 /**
  * @author Ferra13671
- * @LastUpdate 1.5.5
+ * @LastUpdate 1.5.6
  */
 
 public class EventBus implements IEventBus {

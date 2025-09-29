@@ -1,4 +1,6 @@
-package com.ferra13671.MegaEvents;
+package com.ferra13671.MegaEvents.eventbus;
+
+import com.ferra13671.MegaEvents.event.Event;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
@@ -7,7 +9,7 @@ import java.lang.annotation.Target;
 
 /**
  * @author Ferra13671
- * @LastUpdate 1.5.2
+ * @LastUpdate 1.5.6
  */
 
 @Retention(RetentionPolicy.RUNTIME)

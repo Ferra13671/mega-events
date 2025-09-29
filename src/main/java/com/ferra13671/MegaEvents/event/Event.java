@@ -1,8 +1,8 @@
-package com.ferra13671.MegaEvents;
+package com.ferra13671.MegaEvents.event;
 
 /**
  * @author Ferra13671
- * @LastUpdate 1.4.5
+ * @LastUpdate 1.5.6
  */
 
 public abstract class Event<T extends Event<T>> {
