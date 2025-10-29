@@ -1,29 +1,36 @@
 package com.ferra13671.MegaEvents.eventbus;
 
 import com.ferra13671.MegaEvents.event.Event;
-import com.ferra13671.MegaEvents.register.RegistrationDispatcher;
+import com.ferra13671.MegaEvents.lambda.LambdaInfo;
 import com.ferra13671.MegaEvents.register.RegistrationDispatchers;
 
 import java.util.*;
-import java.util.function.Consumer;
 
 /**
  * @author Ferra13671
- * @LastUpdate 1.5.6
+ * @LastUpdate 1.5.7
  */
 
 public class EventBus implements IEventBus {
 
     @Override
     public void register(Object listener) {
-        RegistrationDispatcher registrationDispatcher = listener instanceof Consumer ? RegistrationDispatchers.CONSUMER : RegistrationDispatchers.OBJECT;
-        registrationDispatcher.register(listener);
+        if (listener instanceof LambdaInfo<?>) {
+            LambdaInfo<?> lambdaInfo = (LambdaInfo<?>) listener;
+            RegistrationDispatchers.LAMBDA.register(lambdaInfo);
+        } else {
+            RegistrationDispatchers.OBJECT.register(listener);
+        }
     }
 
     @Override
     public void unregister(Object listener) {
-        RegistrationDispatcher registrationDispatcher = listener instanceof Consumer ? RegistrationDispatchers.CONSUMER : RegistrationDispatchers.OBJECT;
-        registrationDispatcher.unregister(listener);
+        if (listener instanceof LambdaInfo<?>) {
+            LambdaInfo<?> lambdaInfo = (LambdaInfo<?>) listener;
+            RegistrationDispatchers.LAMBDA.unregister(lambdaInfo);
+        } else {
+            RegistrationDispatchers.OBJECT.unregister(listener);
+        }
     }
 
     @Override

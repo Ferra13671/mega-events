@@ -7,10 +7,10 @@ import java.lang.reflect.Method;
 
 /**
  * @author Ferra13671
- * @LastUpdate 1.5.6
+ * @LastUpdate 1.5.7
  */
 
-public class ObjectRegistrationDispatcher extends RegistrationDispatcher {
+public class ObjectRegistrationDispatcher extends RegistrationDispatcher<Object> {
 
     @Override
     public void register(Object listener) {

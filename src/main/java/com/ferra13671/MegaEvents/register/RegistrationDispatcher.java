@@ -14,14 +14,14 @@ import java.util.Comparator;
 
 /**
  * @author Ferra13671
- * @LastUpdate 1.5.6
+ * @LastUpdate 1.5.7
  */
 
-public abstract class RegistrationDispatcher {
+public abstract class RegistrationDispatcher<T> {
 
-    public abstract void register(Object listener);
+    public abstract void register(T listener);
 
-    public abstract void unregister(Object listener);
+    public abstract void unregister(T listener);
 
     protected void recreateConsumer(EventDispatcher<?> eventDispatcher) {
         eventDispatcher.setInvokeConsumer(ListUtils.convertToConsumer(eventDispatcher.getRegisteredMap(), ((registeredMethod, args) -> {
@@ -36,7 +36,7 @@ public abstract class RegistrationDispatcher {
         })));
     }
 
-    protected void registerMethod(Method method, Class<? extends Event> clazz, Object listener) {
+    protected <S extends Event<S>> void registerMethod(Method method, Class<S> clazz, Object listener) {
         EventDispatcher<?> eventDispatcher = EventDispatchers.getDispatcher(clazz);
         boolean needAdd = true;
         for (RegisteredMethod registeredMethod : eventDispatcher.getRegisteredMap()) {
