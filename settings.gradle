@@ -1,2 +1,3 @@
 rootProject.name = 'mega-events'
+include "testing"
 

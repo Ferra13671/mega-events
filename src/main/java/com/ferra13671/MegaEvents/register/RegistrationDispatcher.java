@@ -14,7 +14,7 @@ import java.util.Comparator;
 
 /**
  * @author Ferra13671
- * @LastUpdate 1.5.7
+ * @LastUpdate 1.5.8
  */
 
 public abstract class RegistrationDispatcher<T> {
