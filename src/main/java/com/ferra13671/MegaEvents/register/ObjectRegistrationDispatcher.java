@@ -7,7 +7,7 @@ import java.lang.reflect.Method;
 
 /**
  * @author Ferra13671
- * @LastUpdate 1.5.7
+ * @LastUpdate 1.5.9
  */
 
 public class ObjectRegistrationDispatcher extends RegistrationDispatcher<Object> {
@@ -28,7 +28,8 @@ public class ObjectRegistrationDispatcher extends RegistrationDispatcher<Object>
         for (Method method : listener.getClass().getDeclaredMethods()) {
             if (method.isAnnotationPresent(EventSubscriber.class)) {
                 EventSubscriber annotation = method.getAnnotation(EventSubscriber.class);
-                unregisterMethod(method, annotation.event()[0], listener);
+                Class<? extends Event> clazz = annotation.event()[0];
+                unregisterMethod(method, clazz, listener);
             }
         }
     }

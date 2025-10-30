@@ -14,7 +14,7 @@ import java.util.Comparator;
 
 /**
  * @author Ferra13671
- * @LastUpdate 1.5.8
+ * @LastUpdate 1.5.9
  */
 
 public abstract class RegistrationDispatcher<T> {
@@ -48,13 +48,15 @@ public abstract class RegistrationDispatcher<T> {
         if (needAdd)
             eventDispatcher.getRegisteredMap().add(new RegisteredMethod(listener, method, method.getParameterTypes().length == 0));
 
-        eventDispatcher.getRegisteredMap().sort(Comparator.comparing(registeredMethod -> registeredMethod.method.getAnnotation(EventSubscriber.class).priority()));
+        eventDispatcher.getRegisteredMap().sort(Comparator.comparing(registeredMethod ->
+                registeredMethod.method.isAnnotationPresent(EventSubscriber.class) ? registeredMethod.method.getAnnotation(EventSubscriber.class).priority() : 0
+        ));
         Collections.reverse(eventDispatcher.getRegisteredMap());
 
         recreateConsumer(eventDispatcher);
     }
 
-    protected void unregisterMethod(Method method, Class<? extends Event> clazz, Object listener) {
+    protected <S extends Event<S>> void unregisterMethod(Method method, Class<S> clazz, Object listener) {
         EventDispatcher<?> eventDispatcher = EventDispatchers.getDispatcher(clazz);
         eventDispatcher.getRegisteredMap().removeIf(registeredMethod -> registeredMethod.object.equals(listener) && registeredMethod.method.equals(method));
 
