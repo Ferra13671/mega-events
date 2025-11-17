@@ -1,11 +1,14 @@
 package example;
 
-public class LambdaTestThread extends Thread {
+public class ExampleEventThread extends Thread {
+
+    private int count;
 
     @Override
     public void run() {
         while (!isInterrupted()) {
-            Main.eventBus.activate(LambdaEvent.EVENT_DISPATCHER.createEvent());
+            //Activating the test event
+            Main.eventBus.activate(Main.EVENT_DISPATCHER.createEvent(this.count++));
 
             try {
                 sleep(1000);

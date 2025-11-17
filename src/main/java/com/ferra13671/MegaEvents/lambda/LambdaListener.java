@@ -9,11 +9,11 @@ import java.util.function.Consumer;
  * @LastUpdate 1.5.7
  */
 
-public class LambdaInfo<T extends Event<T>> {
+public class LambdaListener<T extends Event<T>> {
     public final Class<T> clazz;
     public final Consumer<T> listener;
 
-    public LambdaInfo(Class<T> clazz, Consumer<T> listener) {
+    public LambdaListener(Class<T> clazz, Consumer<T> listener) {
         this.clazz = clazz;
         this.listener = listener;
     }

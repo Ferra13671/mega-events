@@ -14,16 +14,16 @@ import java.util.function.Consumer;
 
 public class LambdaListenersDispatcher {
     private final IEventBus eventBus;
-    private final List<LambdaInfo<?>> listeners = new ArrayList<>();
+    private final List<LambdaListener<?>> listeners = new ArrayList<>();
 
     public LambdaListenersDispatcher(IEventBus eventBus) {
         this.eventBus = eventBus;
     }
 
     public <T extends Event<T>> void register(Class<T> clazz, Consumer<T> listener) {
-        LambdaInfo<T> lambdaInfo = new LambdaInfo<>(clazz, listener);
-        this.eventBus.register(lambdaInfo);
-        this.listeners.add(lambdaInfo);
+        LambdaListener<T> lambdaListener = new LambdaListener<>(clazz, listener);
+        this.eventBus.register(lambdaListener);
+        this.listeners.add(lambdaListener);
     }
 
     public void unregisterAll() {

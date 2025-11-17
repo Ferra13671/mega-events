@@ -1,6 +1,6 @@
 package com.ferra13671.MegaEvents.register;
 
-import com.ferra13671.MegaEvents.lambda.LambdaInfo;
+import com.ferra13671.MegaEvents.lambda.LambdaListener;
 
 import java.lang.reflect.Method;
 
@@ -9,10 +9,10 @@ import java.lang.reflect.Method;
  * @LastUpdate 1.5.8
  */
 
-public class LambdaRegistrationDispatcher extends RegistrationDispatcher<LambdaInfo<?>> {
+public class LambdaRegistrationDispatcher extends RegistrationDispatcher<LambdaListener<?>> {
 
     @Override
-    public void register(LambdaInfo<?> listener) {
+    public void register(LambdaListener<?> listener) {
         for (Method method : listener.listener.getClass().getDeclaredMethods()) {
             if (method.getParameterTypes().length > 0) {
                 try {
@@ -24,7 +24,7 @@ public class LambdaRegistrationDispatcher extends RegistrationDispatcher<LambdaI
     }
 
     @Override
-    public void unregister(LambdaInfo<?> listener) {
+    public void unregister(LambdaListener<?> listener) {
         for (Method method : listener.listener.getClass().getDeclaredMethods()) {
             if (method.getParameterTypes().length > 0) {
                 try {
