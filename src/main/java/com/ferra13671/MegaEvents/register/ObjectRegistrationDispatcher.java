@@ -6,10 +6,8 @@ import com.ferra13671.MegaEvents.eventbus.EventSubscriber;
 import java.lang.reflect.Method;
 
 /**
- * @author Ferra13671
- * @LastUpdate 1.5.9
+ * Implementation of a EventBus listener registration dispatcher that manages default listeners.
  */
-
 public class ObjectRegistrationDispatcher extends RegistrationDispatcher<Object> {
 
     @Override

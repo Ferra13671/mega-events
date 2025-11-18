@@ -1,14 +1,12 @@
 package com.ferra13671.MegaEvents.register;
 
-import com.ferra13671.MegaEvents.lambda.LambdaListener;
+import com.ferra13671.MegaEvents.eventbus.LambdaListener;
 
 import java.lang.reflect.Method;
 
 /**
- * @author Ferra13671
- * @LastUpdate 1.5.8
+ * Implementation of a EventBus listener registration dispatcher that manages lambda listeners.
  */
-
 public class LambdaRegistrationDispatcher extends RegistrationDispatcher<LambdaListener<?>> {
 
     @Override

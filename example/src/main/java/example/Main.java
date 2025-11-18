@@ -4,7 +4,7 @@ import com.ferra13671.MegaEvents.event.EventDispatcher;
 import com.ferra13671.MegaEvents.event.EventDispatchers;
 import com.ferra13671.MegaEvents.eventbus.EventBus;
 import com.ferra13671.MegaEvents.eventbus.IEventBus;
-import com.ferra13671.MegaEvents.lambda.LambdaListener;
+import com.ferra13671.MegaEvents.eventbus.LambdaListener;
 
 public class Main {
 

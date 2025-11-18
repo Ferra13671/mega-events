@@ -1,16 +1,13 @@
 package com.ferra13671.MegaEvents.eventbus;
 
 import com.ferra13671.MegaEvents.event.Event;
-import com.ferra13671.MegaEvents.lambda.LambdaListener;
 import com.ferra13671.MegaEvents.register.RegistrationDispatchers;
 
 import java.util.*;
 
 /**
- * @author Ferra13671
- * @LastUpdate 1.5.7
+ * Basic implementation of EventBus.
  */
-
 public class EventBus implements IEventBus {
 
     @Override

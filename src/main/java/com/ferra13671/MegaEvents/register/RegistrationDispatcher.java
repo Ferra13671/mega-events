@@ -13,16 +13,30 @@ import java.util.Collections;
 import java.util.Comparator;
 
 /**
- * @author Ferra13671
- * @LastUpdate 1.5.9
+ * EventBus Listener Registration Manager.
+ * Controls how listeners are registered and unregistered.
  */
-
 public abstract class RegistrationDispatcher<T> {
 
+    /**
+     * Registers the listener.
+     *
+     * @param listener listener.
+     */
     public abstract void register(T listener);
 
+    /**
+     * Unregisters the listener.
+     *
+     * @param listener listener.
+     */
     public abstract void unregister(T listener);
 
+    /**
+     * Recreates method to call all registered listeners in event dispatcher.
+     *
+     * @param eventDispatcher event dispatcher.
+     */
     protected void recreateConsumer(EventDispatcher<?> eventDispatcher) {
         eventDispatcher.setInvokeConsumer(ListUtils.convertToConsumer(eventDispatcher.getRegisteredMap(), ((registeredMethod, args) -> {
             try {
